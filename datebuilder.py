@@ -70,3 +70,7 @@ def build_previous(cur_date_str):
     
     return pad_with_zeroes(str(year), 4) + pad_with_zeroes(str(day), 3) + pad_with_zeroes(str(hour), 2) + pad_with_zeroes(str(minute), 2)
     
+
+def get_year_day_from_filename(name):
+    date_str = name.split("_")[0]
+    return date_str[:7]

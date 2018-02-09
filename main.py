@@ -31,9 +31,10 @@ move_count = archive.process(catalog)
 print(str(move_count) + " files moved to archive")
 
 for image_size in catalog["images"]:
-    for file in catalog["images"][image_size]:
+    for f in catalog["images"][image_size]:
         # print(file)
-        saved = api.save_file(BASE_URL + file, os.path.join(BASE_PATH, image_size, file))
+        year_day = datebuilder.get_year_day_from_filename(f)
+        saved = api.save_file(BASE_URL + f, os.path.join(BASE_PATH, image_size, year_day, f))
         success_count += 1 if saved else 0
         failed_count += 0 if saved else 1
 
