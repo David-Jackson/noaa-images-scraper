@@ -20,13 +20,19 @@ def save_file(url, path):
         return True
     r = requests.get(url, stream=True)
     if r.status_code == 200:
-        print("SUCCESS: " + url)
+        file_size = int(r.headers['Content-length'])
+        print("SUCCESS: " + url + " | " + str(file_size))
         directory = os.path.dirname(path)
         if not os.path.exists(directory):
             os.makedirs(directory)
         with open(path, 'wb') as f:
+            chunk_count = 0
             for chunk in r.iter_content(1024):
+                chunk_count += 1024
+                percentage = int(10000 * chunk_count / file_size) / 100
+                print(str(percentage) + "%", end='\r')
                 f.write(chunk)
+            print("")
         return True
     else:
         print("FAILED: " + url)
