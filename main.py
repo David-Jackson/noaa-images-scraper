@@ -1,6 +1,5 @@
 import datebuilder
 import geos_api as api
-import archive
 import os
 
 success_count = 0
@@ -12,10 +11,6 @@ BASE_PATH = "images"
 image_sizes = ["339x339", "678x678", "1808x1808", "5424x5424", "10848x10848"]
 
 catalog = api.get_catlog()
-
-move_count = archive.process(catalog)
-
-print(str(move_count) + " files moved to archive")
 
 for image_size in catalog["images"]:
     for f in catalog["images"][image_size]:
